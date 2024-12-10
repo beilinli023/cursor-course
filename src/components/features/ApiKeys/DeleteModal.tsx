@@ -11,8 +11,9 @@ interface DeleteModalProps {
 }
 
 export default function DeleteModal({ isOpen, onClose, onDelete, keyName }: DeleteModalProps) {
+  const [_isOpen, _setIsOpen] = useState(false)
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState<string | null>(null)
+  const [_error, setError] = useState<string | null>(null)
 
   const handleDelete = async () => {
     try {
@@ -31,14 +32,14 @@ export default function DeleteModal({ isOpen, onClose, onDelete, keyName }: Dele
   return (
     <Modal isOpen={isOpen} onClose={onClose} title="Delete API Key">
       <div className="space-y-4">
-        {error && (
+        {_error && (
           <div className="bg-red-50 text-red-600 p-4 rounded-lg">
-            {error}
+            {_error}
           </div>
         )}
 
         <p className="text-gray-600">
-          Are you sure you want to delete the API key "{keyName}"? This action cannot be undone.
+          Are you sure you want to delete the API key &quot;{keyName}&quot;? This action cannot be undone.
         </p>
 
         <div className="flex justify-end gap-3">
