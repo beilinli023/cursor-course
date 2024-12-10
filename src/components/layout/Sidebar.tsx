@@ -16,7 +16,6 @@ import {
 import Image from 'next/image'
 
 export default function Sidebar() {
-  const [_isOpen, _setIsOpen] = useState(false)
   const pathname = usePathname()
 
   const navigation = [
@@ -29,10 +28,10 @@ export default function Sidebar() {
   ]
 
   return (
-    <div className="w-64 h-screen bg-white border-r flex flex-col">
+    <div className="w-full md:w-64 h-screen bg-white border-r flex flex-col">
       {/* Logo and Project Selector */}
-      <div className="p-4 border-b">
-        <div className="flex items-center gap-2 mb-4">
+      <div className="p-3 sm:p-4 border-b">
+        <div className="flex items-center gap-2 mb-3 sm:mb-4">
           <Image src="/logo.svg" alt="Logo" width={24} height={24} />
           <span 
             className="text-xl font-semibold bg-clip-text text-transparent bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500"
@@ -47,7 +46,7 @@ export default function Sidebar() {
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 p-4 space-y-1">
+      <nav className="flex-1 p-3 sm:p-4 space-y-1">
         {navigation.map((item) => {
           const Icon = item.icon
           return (

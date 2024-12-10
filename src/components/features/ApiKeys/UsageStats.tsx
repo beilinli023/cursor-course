@@ -50,15 +50,15 @@ export default function UsageStats({ apiKeyId }: UsageStatsProps) {
   }
 
   return (
-    <div className="space-y-4">
-      <div className="flex justify-between items-center">
-        <h3 className="text-lg font-medium">Usage Statistics</h3>
+    <div className="space-y-3 sm:space-y-4">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+        <h3 className="text-base sm:text-lg font-medium">Usage Statistics</h3>
         <div className="text-sm text-gray-600">
           Total Usage: {stats?.total || 0}
         </div>
       </div>
 
-      <div className="h-64 relative">
+      <div className="h-48 sm:h-64 relative">
         <div className="absolute inset-0 flex items-end gap-1">
           {stats?.daily.map((day) => (
             <div
