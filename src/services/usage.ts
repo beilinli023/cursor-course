@@ -36,23 +36,37 @@ export const usageService = {
 
   // 记录 API 使用
   async logUsage(apiKeyId: string) {
-    const today = new Date().toISOString().split('T')[0]
+    try {
+      // 先获取当前使用量
+      const { data, error: fetchError } = await supabase
+        .from('api_keys')
+        .select('usage')
+        .eq('id', apiKeyId)
+        .single()
 
-    // 更新总使用量
-    const { error: updateError } = await supabase
-      .from('api_keys')
-      .update({ usage: supabase.raw('usage + 1') })
-      .eq('id', apiKeyId)
-    
-    if (updateError) throw updateError
+      if (fetchError) throw fetchError
 
-    // 更新每日统计
-    const { error: logError } = await supabase.rpc('increment_daily_usage', {
-      p_api_key_id: apiKeyId,
-      p_date: today
-    })
+      // 更新使用量
+      const currentUsage = data?.usage || 0
+      const { error: updateError } = await supabase
+        .from('api_keys')
+        .update({ usage: currentUsage + 1 })
+        .eq('id', apiKeyId)
 
-    if (logError) throw logError
+      if (updateError) throw updateError
+
+      // 更新每日统计
+      const today = new Date().toISOString().split('T')[0]
+      const { error: logError } = await supabase.rpc('increment_daily_usage', {
+        p_api_key_id: apiKeyId,
+        p_date: today
+      })
+
+      if (logError) throw logError
+    } catch (error) {
+      console.error('Error logging usage:', error)
+      throw error
+    }
   },
 
   async incrementUsage(apiKeyId: string) {
@@ -74,6 +88,8 @@ export const usageService = {
         .eq('id', apiKeyId)
 
       if (updateError) throw updateError
+
+      return { success: true }
     } catch (error) {
       console.error('Error incrementing usage:', error)
       throw error
