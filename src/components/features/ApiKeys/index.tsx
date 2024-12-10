@@ -28,6 +28,7 @@ export default function ApiKeys({ apiKeys, onCopy, onEdit, onCreate, onDelete }:
   const [showToast, setShowToast] = useState(false)
   const [visibleKeys, setVisibleKeys] = useState<Record<string, boolean>>({})
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false)
+  const [_error, setError] = useState<string | null>(null)
 
   const toggleKeyVisibility = (id: string) => {
     setVisibleKeys(prev => ({
@@ -66,10 +67,6 @@ export default function ApiKeys({ apiKeys, onCopy, onEdit, onCreate, onDelete }:
     } catch (error) {
       return dateString
     }
-  }
-
-  const handleEdit = (key: ApiKey) => {
-    setEditingKey(key)
   }
 
   const handleSave = async (data: { name: string; usage_limit?: number }) => {

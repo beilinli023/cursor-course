@@ -14,7 +14,7 @@ export default function UsageStats({ apiKeyId }: UsageStatsProps) {
 
   useEffect(() => {
     loadStats()
-  }, [apiKeyId])
+  }, [loadStats, apiKeyId])
 
   const loadStats = async () => {
     try {

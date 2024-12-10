@@ -16,7 +16,7 @@ import {
 import Image from 'next/image'
 
 export default function Sidebar() {
-  const [isOpen, setIsOpen] = useState(false)
+  const [_isOpen, _setIsOpen] = useState(false)
   const pathname = usePathname()
 
   const navigation = [
