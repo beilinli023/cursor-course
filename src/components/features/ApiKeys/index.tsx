@@ -28,7 +28,6 @@ export default function ApiKeys({ apiKeys, onCopy, onEdit, onCreate, onDelete }:
   const [showToast, setShowToast] = useState(false)
   const [visibleKeys, setVisibleKeys] = useState<Record<string, boolean>>({})
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false)
-  const [_error, _setError] = useState<string | null>(null)
 
   const toggleKeyVisibility = (id: string) => {
     setVisibleKeys(prev => ({
@@ -82,7 +81,7 @@ export default function ApiKeys({ apiKeys, onCopy, onEdit, onCreate, onDelete }:
       await onCreate(data)
       setIsCreateModalOpen(false)
     } catch (error) {
-      console.error('创建失败:', error)
+      console.error('创建��败:', error)
       throw error
     }
   }

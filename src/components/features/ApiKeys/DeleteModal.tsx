@@ -39,7 +39,7 @@ export default function DeleteModal({ isOpen, onClose, onDelete, keyName }: Dele
         )}
 
         <p className="text-gray-600">
-          Are you sure you want to delete the API key &quot;{keyName}&quot;? This action cannot be undone.
+          Are you sure you want to delete the API key &ldquo;{keyName}&rdquo;? This action cannot be undone.
         </p>
 
         <div className="flex justify-end gap-3">
