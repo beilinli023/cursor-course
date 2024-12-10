@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { usageService, type UsageStats } from '@/services/usage'
 
 interface UsageStatsProps {
