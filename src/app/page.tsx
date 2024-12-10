@@ -8,7 +8,7 @@ import EmailAlerts from '@/components/features/EmailAlerts'
 
 export default function Home() {
   const [apiKeys, setApiKeys] = useState<ApiKey[]>([])
-  const [loading, setLoading] = useState(true)
+  const [_loading, setLoading] = useState(false)
 
   const loadApiKeys = async () => {
     try {

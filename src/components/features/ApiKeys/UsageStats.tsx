@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { usageService, type UsageStats } from '@/services/usage'
 
 interface UsageStatsProps {
@@ -12,23 +12,22 @@ export default function UsageStats({ apiKeyId }: UsageStatsProps) {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
-  useEffect(() => {
-    loadStats()
-  }, [loadStats, apiKeyId])
-
-  const loadStats = async () => {
+  const fetchStats = useCallback(async () => {
     try {
       setLoading(true)
       const data = await usageService.getStats(apiKeyId)
       setStats(data)
       setError(null)
-    } catch (err) {
-      setError('Failed to load usage statistics')
-      console.error(err)
+    } catch {
+      setError('Failed to fetch usage stats')
     } finally {
       setLoading(false)
     }
-  }
+  }, [apiKeyId])
+
+  useEffect(() => {
+    fetchStats()
+  }, [fetchStats])
 
   // 计算最大使用量以确定图表高度
   const maxUsage = stats?.daily.reduce((max, day) => 

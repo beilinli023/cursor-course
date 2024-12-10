@@ -15,19 +15,16 @@ export default function CreateModal({ isOpen, onClose, onCreate }: CreateModalPr
     usage_limit: 1000
   })
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState<string | null>(null)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     try {
       setLoading(true)
-      setError(null)
       await onCreate(formData)
       setFormData({ name: '', usage_limit: 1000 }) // 重置表单
       onClose()
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to create API key')
-      console.error('Create error:', err)
+    } catch (error) {
+      console.error('Error:', error)
     } finally {
       setLoading(false)
     }
@@ -36,16 +33,15 @@ export default function CreateModal({ isOpen, onClose, onCreate }: CreateModalPr
   return (
     <Modal
       title="创建 API 密钥"
-      description="创建一个新的 API 密钥来访问我们的服务。"
       isOpen={isOpen}
       onClose={onClose}
     >
-      <form onSubmit={handleSubmit} className="space-y-6">
-        {error && (
-          <div className="bg-red-50 text-red-600 p-4 rounded-lg">
-            {error}
-          </div>
-        )}
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div className="mt-2">
+          <p className="text-sm text-gray-500">
+            创建一个新的 API 密钥来访问我们的服务。
+          </p>
+        </div>
 
         <div className="space-y-4">
           <div>

@@ -41,7 +41,7 @@ export const usageService = {
     // 更新总使用量
     const { error: updateError } = await supabase
       .from('api_keys')
-      .update({ usage: supabase.sql`usage + 1` })
+      .update({ usage: supabase.raw('usage + 1') })
       .eq('id', apiKeyId)
     
     if (updateError) throw updateError
@@ -53,5 +53,30 @@ export const usageService = {
     })
 
     if (logError) throw logError
+  },
+
+  async incrementUsage(apiKeyId: string) {
+    try {
+      // 先获取当前使用量
+      const { data, error: fetchError } = await supabase
+        .from('api_keys')
+        .select('usage')
+        .eq('id', apiKeyId)
+        .single()
+
+      if (fetchError) throw fetchError
+
+      // 更新使用量
+      const currentUsage = data?.usage || 0
+      const { error: updateError } = await supabase
+        .from('api_keys')
+        .update({ usage: currentUsage + 1 })
+        .eq('id', apiKeyId)
+
+      if (updateError) throw updateError
+    } catch (error) {
+      console.error('Error incrementing usage:', error)
+      throw error
+    }
   }
 } 
