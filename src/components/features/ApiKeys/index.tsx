@@ -28,7 +28,7 @@ export default function ApiKeys({ apiKeys, onCopy, onEdit, onCreate, onDelete }:
   const [showToast, setShowToast] = useState(false)
   const [visibleKeys, setVisibleKeys] = useState<Record<string, boolean>>({})
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false)
-  const [_error, setError] = useState<string | null>(null)
+  const [_error, _setError] = useState<string | null>(null)
 
   const toggleKeyVisibility = (id: string) => {
     setVisibleKeys(prev => ({
@@ -62,9 +62,10 @@ export default function ApiKeys({ apiKeys, onCopy, onEdit, onCreate, onDelete }:
   const formatDateTime = (dateString: string) => {
     try {
       const [date, time] = dateString.split('T')
-      const cleanTime = time.split('.')[0]
-      return `${date}  ${cleanTime}`
+      const cleanTime = time?.split('.')[0] || ''
+      return `${date} ${cleanTime}`
     } catch (error) {
+      console.error('日期格式化失败:', error)
       return dateString
     }
   }
