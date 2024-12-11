@@ -2,10 +2,12 @@ import { supabase } from '@/lib/supabase'
 
 export interface UsageStats {
   total: number
-  daily: {
-    date: string
-    count: number
-  }[]
+  daily: DailyStats[]
+}
+
+export interface DailyStats {
+  date: string
+  count: number
 }
 
 export const usageService = {

@@ -31,7 +31,7 @@ export default function DeleteModal({ isOpen, onClose, onDelete, keyName }: Dele
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} title="Delete API Key">
-      <div className="space-y-4">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 space-y-3 sm:space-y-4">
         {_error && (
           <div className="bg-red-50 text-red-600 p-4 rounded-lg">
             {_error}

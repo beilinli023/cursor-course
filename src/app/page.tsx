@@ -5,6 +5,7 @@ import { apiKeysService, type ApiKey } from '@/services/apiKeys'
 import PlanOverview from '@/components/features/PlanOverview'
 import ApiKeys from '@/components/features/ApiKeys'
 import EmailAlerts from '@/components/features/EmailAlerts'
+import Sidebar from '@/components/layout/Sidebar'
 
 export default function Home() {
   const [apiKeys, setApiKeys] = useState<ApiKey[]>([])
@@ -68,21 +69,26 @@ export default function Home() {
   }
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 space-y-4 sm:space-y-6">
-      <PlanOverview />
-      <ApiKeys
-        apiKeys={apiKeys}
-        onCopy={handleCopyKey}
-        onEdit={handleEditKey}
-        onCreate={handleCreateKey}
-        onDelete={handleDeleteKey}
-      />
-      <EmailAlerts
-        threshold={90}
-        enabled={true}
-        onThresholdChange={() => {}}
-        onToggle={() => {}}
-      />
+    <div className="flex">
+      <Sidebar />
+      <main className="flex-1 ml-0 md:ml-64 min-h-screen">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 space-y-4 sm:space-y-6">
+          <PlanOverview />
+          <ApiKeys
+            apiKeys={apiKeys}
+            onCopy={handleCopyKey}
+            onEdit={handleEditKey}
+            onCreate={handleCreateKey}
+            onDelete={handleDeleteKey}
+          />
+          <EmailAlerts
+            threshold={90}
+            enabled={true}
+            onThresholdChange={() => {}}
+            onToggle={() => {}}
+          />
+        </div>
+      </main>
     </div>
   )
 }
